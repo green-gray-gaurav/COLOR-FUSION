@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+    <div class="main">
+        <div class="header">
+            <h1>FUSION</h1>
+        </div>
+        <div class="image_block">
+            <div class="image_uploader">
+                <div class="base_image">
+                    <label for="base_image_input" class ="file_type">BROWSE BASE IMAGE</label>
+                    <input type="file" id = "base_image_input" onchange ="readURL(1, this);">
+                    
+                    <img id = "base_image_output" src="" alt="UPLOAD BASE COLOR IMAGE" width ='400'>
+                </div>
+                <div class="input_image">
+                    <label for="input_image_input" class ="file_type">BROWSE INPUT IMAGE</label>
+                    <input type="file" id = "input_image_input" onchange="readURL(2 , this)">
+                    
+                    <img  id = "input_image_output" src="" alt="UPLOAD INPUT IMAGE" width = '400'>
+                </div>
+            </div>
+            <div class="image_output">
+                <img  id = "fusion_image" src="" alt="" width="300">
+                <a id="download_image" class="invisible_elm" href="" download="fused_image">DOWNLOAD</a>
+            </div>
+        </div>
+        <div class="buttons">
+
+             <h4>
+                CLusters :
+                <span id="cluster_range">10</span> 
+             </h4>
+            <input type="range" min="0" max="100" value="10" class="slider" id="clutser_slider" onchange="slider(0 , this)">
+
+            <h4>
+                Alpha :
+                <span id="alpha_range">0.01</span> 
+             </h4>
+            <input type="range" min="0" max="100" value="10" class="slider" id="alpha_slider" onchange="slider(1 , this)">
+
+            <h4>
+                Beta :
+                <span id="beta_range">0.01</span> 
+             </h4>
+            <input type="range" min="0" max="100" value="10" class="slider" id="beta_slider" onchange="slider(2 , this)">
+
+
+            
+            <button id="fuse_button" onclick="fuse_images();">
+                FUSE
+            </button>
+            
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+    
+</body>
+</html>
