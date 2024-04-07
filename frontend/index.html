@@ -35,24 +35,62 @@
         </div>
         <div class="buttons">
 
+            <div id="cluster_slider_container">
+                <h4>
+                    CLusters :
+                    <span id="cluster_range">10</span> 
+                 </h4>
+                <input type="range" min="0" max="100" value="10" class="slider" id="clutser_slider" onchange="slider(0 , this)">
+            </div>
+           
+            <div id="alpha_slider_container">
+
+                <h4>
+                    Alpha :
+                    <span id="alpha_range">0.01</span> 
+                 </h4>
+                <input type="range" min="0" max="100" value="10" class="slider" id="alpha_slider" onchange="slider(1 , this)">
+
+            </div>
+
+            <div id="beta_slider_container">
+                
+                <h4>
+                    Beta :
+                    <span id="beta_range">0.01</span> 
+                 </h4>
+                <input type="range" min="0" max="100" value="10" class="slider" id="beta_slider" onchange="slider(2 , this)">
+                
+            </div>
+
+            <div id="enchant_slider_container">
+
+                <h4>
+                    Enchant :
+                    <span id="enchant_range">0.8</span> 
+                 </h4>
+                <input type="range" min="0" max="10" value="8" class="slider" id="enchant_slider" onchange="slider(3 , this)">
+
+            </div>
+
+            <div id="shift_slider_container">
+
+                <h4>
+                    Shift :
+                    <span id="shift_range">0.3</span> 
+                 </h4>
+                <input type="range" min="0" max="10" value="3" class="slider" id="shift_slider" onchange="slider(4 , this)">
+
+            </div>
+
              <h4>
-                CLusters :
-                <span id="cluster_range">10</span> 
+                Version : 
+                <select id="version select" onchange="drop_down(this);">
+                    <option value="version1">Gaussian</option>
+                    <option value="version2">vanila</option>
+                    <option value="version3">blackRem</option>
+                </select>
              </h4>
-            <input type="range" min="0" max="100" value="10" class="slider" id="clutser_slider" onchange="slider(0 , this)">
-
-            <h4>
-                Alpha :
-                <span id="alpha_range">0.01</span> 
-             </h4>
-            <input type="range" min="0" max="100" value="10" class="slider" id="alpha_slider" onchange="slider(1 , this)">
-
-            <h4>
-                Beta :
-                <span id="beta_range">0.01</span> 
-             </h4>
-            <input type="range" min="0" max="100" value="10" class="slider" id="beta_slider" onchange="slider(2 , this)">
-
 
             
             <button id="fuse_button" onclick="fuse_images();">

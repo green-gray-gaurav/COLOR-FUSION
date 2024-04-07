@@ -8,7 +8,7 @@ import pickle
 import matplotlib.pyplot as plt
 import PIL
 import urllib
-from model import fusion_kMeans
+from model import fusion_kMeans, fusion_kMeans_V2, fusion_kMeans_V3
 import base64
 import asyncio
 
@@ -32,12 +32,25 @@ async def fuse():
         alpha = float(data['alpha'])
         clusters = int(data['clusters'])
         beta = float(data['beta'])
+        enchant = data['enchant']
+        shift = data['shift']
+        version = data['version']
+
         base_image.save("backend/assets/base_image." + base_image.format)
         input_image.save("backend/assets/input_image." + input_image.format)
 
-        fusion_kMeans(np.array(base_image), np.array(
-            input_image), ext=f".{input_image.format}", clusters=clusters, alpha=alpha, beta=beta)
+        if (version == 'version1'):
+            fusion_kMeans(np.array(base_image), np.array(
+                input_image), ext=f".{input_image.format}", clusters=clusters, alpha=alpha, beta=beta)
 
+        elif version == 'version2':
+            fusion_kMeans_V2(np.array(base_image), np.array(
+                input_image), ext=f".{input_image.format}", clusters=clusters, enchant=enchant)
+
+        elif version == 'version3':
+            fusion_kMeans_V3(np.array(base_image), np.array(
+                input_image), ext=f".{input_image.format}", clusters=clusters, enchant=enchant, image_shift=shift)
+    
         return send_file(f"assets\\fused_image.{input_image.format}",
                          mimetype=f'image/{input_image.format}')
 

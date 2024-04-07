@@ -88,7 +88,12 @@ button{
     padding: 10px;
 }
 .invisible_elm{
-    visibility:hidden;
+    visibility:hidden;  
+}
+
+.deactivate_elm{
+   
+    opacity: 0.3;
 }
 .buttons{
     margin-top: 5px;

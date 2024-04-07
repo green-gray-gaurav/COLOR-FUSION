@@ -9,6 +9,10 @@ var fused_image = null;
 var clusters = 10;
 var alpha = 0.01;
 var beta = 0.01;
+var enchant = 0.8;
+var shift = 0.3;
+
+var version = "version1";
 
 const url = "http://127.0.0.1:5000/fuse";
 
@@ -29,6 +33,24 @@ function readURL(idx, input) {
   }
 }
 
+function hide_slider_all() {
+  var sliders = ["cluster", "alpha", "beta", "enchant", "shift"];
+  sliders.forEach((value, idx) => {
+    var elm = document.getElementById(value + "_slider_container");
+    console.log(elm);
+    elm.classList.add("deactivate_elm");
+  });
+}
+function show_slider(list) {
+  list.forEach((value, idx) => {
+    var elm = document.getElementById(value + "_slider_container");
+    console.log(elm);
+    elm.classList.remove("deactivate_elm");
+  });
+}
+
+hide_slider_all();
+
 function slider(idx, elm) {
   if (idx == 0) {
     document.getElementById("cluster_range").innerHTML = elm.value;
@@ -41,6 +63,30 @@ function slider(idx, elm) {
   if (idx == 2) {
     document.getElementById("beta_range").innerHTML = elm.value / 1000;
     beta = elm.value / 1000;
+  }
+  if (idx == 3) {
+    document.getElementById("enchant_range").innerHTML = elm.value / 10;
+    enchnat = elm.value / 10;
+  }
+  if (idx == 4) {
+    document.getElementById("shift_range").innerHTML = elm.value / 10;
+    shift = elm.value / 10;
+  }
+}
+
+function drop_down(obj) {
+  version = obj.value;
+  if (version == "version1") {
+    hide_slider_all();
+    show_slider(["cluster", "alpha", "beta"]);
+  }
+  if (version == "version2") {
+    hide_slider_all();
+    show_slider(["cluster", "enchant"]);
+  }
+  if (version == "version3") {
+    hide_slider_all();
+    show_slider(["cluster", "enchant", "shift"]);
   }
 }
 
@@ -58,6 +104,9 @@ async function fuse_images() {
     clusters: clusters,
     alpha: alpha,
     beta: beta,
+    enchant: enchant,
+    shift : shift,
+    version: version,
   };
 
   var options = {
