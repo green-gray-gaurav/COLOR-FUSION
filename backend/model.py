@@ -99,7 +99,6 @@ def fusion_kMeans_V3(image, image_2, ext=".jpg",  clusters=10, image_shift=0.3, 
         value = [f * mean_value_r,
                  f * mean_value_g,
                  f * mean_value_b]
-
         list_image_2[(list_image_2 == [pixel, pixel, pixel]
                       ).any(axis=1)] = kmeans_model.predict([value])
 
