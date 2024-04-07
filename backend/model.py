@@ -5,6 +5,7 @@ from matplotlib.image import imread
 import cv2
 import copy
 
+
 # base image
 
 
@@ -58,6 +59,18 @@ def fusion_kMeans_V2(image, image_2, ext=".jpg",  clusters=10, enchant=0.8, mf=5
     return image_2
 
 
+# async def black_ecnhant(model, start=0, end=255, image, image_shift, mr, mg, mb):
+#     for pixel in range(start, end + 1):
+#         print("pixel", pixel)
+#         f = max([image_shift, 1 - pixel/255])
+#         value = [f * mr,
+#                  f * mg,
+#                  f * mb]
+#         image[(image == [pixel, pixel, pixel]
+#                ).any(axis=1)] = model.predict([value])
+#     pass
+
+
 def fusion_kMeans_V3(image, image_2, ext=".jpg",  clusters=10, image_shift=0.3,  enchant=0.8, mf=5):
 
     list_image = image.reshape(-1, 3)
@@ -66,41 +79,35 @@ def fusion_kMeans_V3(image, image_2, ext=".jpg",  clusters=10, image_shift=0.3, 
     list_image_2 = list_image_2 + image_shift * list_image_2
 
     mean_value_r = np.mean(image[:, :, 0])
-    
-
     mean_value_g = np.mean(image[:, :, 1])
-   
-
     mean_value_b = np.mean(image[:, :, 2])
-  
 
     print("fusion ongoing")
     kmeans_model = KMeans(n_clusters=clusters, ).fit(list_image)
     print("fusion_complete")
-
-    # creating a image blended image
-    for pixel in range(256):
-        f = max([image_shift, 1 - pixel/255])
-        value = [f * mean_value_r,
-                 f * mean_value_g,
-                 f * mean_value_b]
-        list_image_2[(list_image_2 == [pixel, pixel, pixel]
-                      ).any(axis=1)] = value
 
     labels = kmeans_model.predict(list_image_2)
 
     non_black_centers = kmeans_model.cluster_centers_[
         (kmeans_model.cluster_centers_ != [0, 0, 0]).any(axis=1)]
 
-  
     list_image_2 = non_black_centers[labels]
- 
+
+    for pixel in range(256):
+        print("pixel", pixel)
+        f = max([image_shift, 1 - pixel/255])
+        value = [f * mean_value_r,
+                 f * mean_value_g,
+                 f * mean_value_b]
+
+        list_image_2[(list_image_2 == [pixel, pixel, pixel]
+                      ).any(axis=1)] = kmeans_model.predict([value])
 
     image_2_fused = list_image_2.reshape(image_2.shape)
 
-    image_2 = image_2_fused - image_shift * image_2_fused  # this is negative shift
+    # image_2 = image_2_fused - image_shift * image_2_fused  # this is negative shift
 
-    # image_2 = enchant * image_2_fused + (1 - enchant) * image_2
+    image_2 = enchant * image_2_fused + (1 - enchant) * image_2
 
     image_2 = image_2.astype(dtype=int)
 
