@@ -15,6 +15,7 @@ var shift = 0.3;
 var version = "version1";
 
 const url = "http://127.0.0.1:5000/fuse";
+const url_use_color = "http://127.0.0.1:5000/use";
 
 function readURL(idx, input) {
   if (input.files && input.files[0]) {
@@ -90,14 +91,15 @@ function drop_down(obj) {
   }
 }
 
-async function fuse_images() {
+async function fuse_images(obj, compute = true) {
   if (!base_image || !input_image) {
     alert("please upload the images");
     return;
   }
 
-  document.getElementById("fuse_button").innerHTML = "FUSING...";
-  document.getElementById("fuse_button").style.backgroundColor = "red";
+  obj.innerHTML = compute ? "FUSING..." : "USING...";
+  obj.style.backgroundColor = "blue";
+
   var data = {
     image1: base_image,
     image2: input_image,
@@ -105,8 +107,9 @@ async function fuse_images() {
     alpha: alpha,
     beta: beta,
     enchant: enchant,
-    shift : shift,
+    shift: shift,
     version: version,
+    compute: compute,
   };
 
   var options = {
@@ -135,7 +138,7 @@ async function fuse_images() {
         .getElementById("download_image")
         .classList.remove("invisible_elm");
 
-      document.getElementById("fuse_button").innerHTML = "FUSE";
-      document.getElementById("fuse_button").style.backgroundColor = "black";
+      obj.innerHTML = compute ? "FUSE" : "USE";
+      obj.style.backgroundColor = "black";
     });
 }
