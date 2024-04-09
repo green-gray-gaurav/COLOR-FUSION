@@ -11,6 +11,5 @@
     example: BlackREm is used for extra reduction of black pixels
 
 ##### some related ss
-
-    ![image1_vanila](__images/image_vanila.png)
-    ![image2_vanila](__images/image2_vanila.png)
+![image1_vanila](https://github.com/green-gray-gaurav/COLOR-FUSION/blob/version2/__images/image2_vanila.png)
+![image2_vanila](https://github.com/green-gray-gaurav/COLOR-FUSION/blob/version2/__images/image_vanila.png)
