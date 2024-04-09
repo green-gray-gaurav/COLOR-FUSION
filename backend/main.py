@@ -42,16 +42,16 @@ async def fuse():
 
         if (version == 'version1'):
             fusion_kMeans(np.array(base_image), np.array(
-                input_image), ext=f".{input_image.format}", clusters=clusters, alpha=alpha, beta=beta , compute = compute)
+                input_image), ext=f".{input_image.format}", clusters=clusters, alpha=alpha, beta=beta, compute=compute)
 
         elif version == 'version2':
             fusion_kMeans_V2(np.array(base_image), np.array(
-                input_image), ext=f".{input_image.format}", clusters=clusters, enchant=enchant , compute = compute)
+                input_image), ext=f".{input_image.format}", clusters=clusters, enchant=enchant, compute=compute)
 
         elif version == 'version3':
             fusion_kMeans_V3(np.array(base_image), np.array(
-                input_image), ext=f".{input_image.format}", clusters=clusters, enchant=enchant, image_shift=shift , compute= compute)
-    
+                input_image), ext=f".{input_image.format}", clusters=clusters, enchant=enchant, image_shift=shift, compute=compute)
+
         return send_file(f"assets\\fused_image.{input_image.format}",
                          mimetype=f'image/{input_image.format}')
 
